@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Week-4-Game</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            background-image: url("http://globalspin365.com/wp-content/uploads/2017/05/Lil-Jon.jpg");
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
+    </style>
+
+
+</head>
+<body>
+  <br>
+  <br>
+
+  
+    <div class= "container">
+        <div class= "row">
+            <div class= "col-md-3">
+              <img src="https://d2gr5kl7dt2z3t.cloudfront.net/blog/wp-content/uploads/2015/07/shutterstock_114395089-600x600.jpg" alt="" class= "diamond" height="150px" width="250px"> 
+            </div>
+            <div class= "col-md-3">
+              <img src="http://ak3.picdn.net/shutterstock/videos/21176353/thumb/1.jpg" alt="" class= "sapphire" height="150px" width="250px">
+            </div>
+            <div class= "col-md-3">
+              <img src="https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX2380325.jpg" alt="" class= "ruby" height="150px" width="250px">
+            </div>
+            <div class= "col-md-3">
+              <img src="https://thumbs.dreamstime.com/t/3d-emerald-4089437.jpg" alt="" class= "emerald" height="150px" width="250px">
+            </div>
+        </div>
+        <h1>Number to Guess: <span id="number-to-guess"></span></h1>
+    </div>
+  <!-- Note that this div is now empty. We will fill it dynamically -->
+  <div class="diamond">
+  </div>
+  <div class="sapphire">
+  </div>
+  <div class="ruby">
+  </div>
+  <div class="emerald">
+  </div>
+
+  <!-- JAVASCRIPT  -->
+  <!-- ========================================= -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <script type="text/javascript">
+
+  var targetNumber = 53;
+
+  $("#number-to-guess").text(targetNumber);
+
+  var gem = {
+        diamond: $(".diamond"),
+        sapphire: $(".sapphire"),
+        ruby: $(".ruby"),
+        emerald: $(".emerald"),
+}
+  var counter = 0;
+
+  // Now for the hard part. Creating multiple crystals each with their own unique number value.
+
+  // We begin by expanding our array to include four options.
+  var numberOptions = [10, 5, 3, 7];
+
+  // Next we create a for loop to create crystals for every numberOption.
+  for (var i = 0; i < numberOptions.length; i++) {
+
+    // For each iteration, we will create an imageCrystal
+    var imageGem = $("<img>");
+    
+
+    // First each crystal will be given the class ".crystal-image".
+    // This will allow the CSS to take effect.
+    imageGem.addClass("gem-image");
+
+    // Each imageCrystal will be given a src link to the crystal image
+    imageGem.attr("src", "https://d2gr5kl7dt2z3t.cloudfront.net/blog/wp-content/uploads/2015/07/shutterstock_114395089-600x600.jpg", "http://ak3.picdn.net/shutterstock/videos/21176353/thumb/1.jpg", 
+    "https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX2380325.jpg", "https://thumbs.dreamstime.com/t/3d-emerald-4089437.jpg");
+
+    // Each imageCrystal will be given a data attribute called data-crystalValue.
+    // This data attribute will be set equal to the array value.
+    imageGem.attr("data-gemvalue", numberOptions[i]);
+    diamond.attr("data-gemvalue", numberOptions[i]);
+    // Lastly, each gem image (with all it classes and attributes) will get added to the page.
+    gems.append(imageGem);
+  }
+
+  // This time, our click event applies to every single gem on the page. Not just one.
+    gems.on("click", "gem-image", function() {
+
+    // Determining the gem's value requires us to extract the value from the data attribute.
+    // Using the $(this) keyword specifies that we should be extracting the gem value of the clicked gem.
+    // Using the .attr("data-gemvalue") allows us to grab the value out of the "data-gemvalue" attribute.
+    // Since attributes on HTML elements are strings, we must convert it to an integer before adding to the counter
+
+    var gemValue = ($(this).attr("data-gemvalue"));
+    gemValue = parseInt(gemValue);
+    // We then add the gemValue to the user's "counter" which is a global variable.
+    // Every click, from every gem adds to the global counter.
+    counter += gemValue;
+
+    // All of the same game win-lose logic applies. So the rest remains unchanged.
+    alert("New score: " + counter);
+
+    if (counter === targetNumber) {
+      alert("You win!");
+    } else if (counter >= targetNumber) {
+      alert("You lose!!");
+    }
+
+  });
+
+  </script>
+
+</body>
+</html>
